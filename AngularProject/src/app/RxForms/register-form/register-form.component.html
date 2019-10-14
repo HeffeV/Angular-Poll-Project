@@ -1,16 +1,36 @@
 <div class="card" style="width: 18rem;">
         <div class="card-body">
                 <h3 class="card-title">Register</h3>
-        <form class="registerForm" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-        <p>Email:</p>
-        <input class="form-control" type="email" formControlName="email" />
-        <p>Username:        </p>
-                <input class="form-control" type="text" formControlName="username" />
-        <p>Password:        </p>
-        <input class="form-control" type="password" formControlName="password" />
-        <p>
-            <button class="btnMargin btn btn-light" type="submit" [disabled]="!registerForm.valid || submitted">Register</button>
-        </p>
-        </form>
+
+                <form [formGroup]="registerForm" autocomplete="off" (submit)="onSubmit()">
+                        <div class="form-group required">
+                          <label>Username</label>
+                          <input class="form-control" formControlName="Username">
+                        </div>
+                        <div class="form-group">
+                          <label>Email</label>
+                          <input class="form-control" formControlName="Email">
+                        </div>
+                        <div formGroupName="Passwords">
+                          <div class="form-group required">
+                            <label>Password</label>
+                            <input type="password" class="form-control" formControlName="Password">
+                          </div>
+                          <div class="form-group required">
+                            <label>Confirm Password</label>
+                            <input type="password" class="form-control" formControlName="ConfirmPassword">
+                            <label class="text-danger" *ngIf="registerForm.get('Passwords.ConfirmPassword').touched && registerForm.get('Passwords.ConfirmPassword').errors?.passwordMismatch">
+                                    Passwords do not match.</label>
+                          </div>
+                        </div>
+                        <div class="form-row">
+                          <div class="form-group col-md-8 offset-md-2">
+                            <button type="submit" class="btnMargin btn btn-light" [disabled]="!registerForm.valid">Register</button>
+                          </div>
+                        </div>
+                      </form>
+
+
         </div>
         </div>
+        <div class="alert alert-danger" *ngIf="showError">{{registerError}}</div>

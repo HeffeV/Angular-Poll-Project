@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { debug } from 'util';
-import { User } from '../User/models/user.model';
+import { User } from '../Models/user.model';
 import { HomePageStats } from './home-page-stats.model';
 
 @Injectable({

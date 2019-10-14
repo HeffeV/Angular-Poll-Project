@@ -1,0 +1,49 @@
+<div class="accordion" id="accordionExample">
+        <h3>My polls</h3>
+    <div *ngFor="let p of myPolls" class='card'>
+        <div class="card-header" [id]="'heading'+p.pollID">
+            <h2 class=mb-0>
+                <button class="btn btn-link" type="button" data-toggle="collapse" [attr.data-target]="'#collapse' + p.pollID" aria-expanded="true" aria-controls="'collapse'+p.pollID">
+                    {{p.name}}
+                  </button>
+            </h2>
+        </div>
+
+        <div [id]="'collapse'+p.pollID" class="collapse" aria-labelledby="'heading'+p.pollID" data-parent="#accordionExample">
+            <div class="card-body">
+                <ul>
+                    <li *ngFor="let a of p.pollAnswers">{{a.answer}}   <strong *ngFor="let a of a.pollAnswerVotes; let i = index">{{i+1}} vote(s)</strong></li>
+                </ul>
+            </div>
+          </div>
+
+    </div>
+
+</div>
+
+<div class="accordion" id="accordionExample">
+        <h3>Invited polls</h3>
+    <div *ngFor="let p of invitedPolls" class='card'>
+        <div class="card-header" [id]="'heading'+p.pollID">
+            <h2 class=mb-0>
+                <button class="btn btn-link" type="button" data-toggle="collapse" [attr.data-target]="'#collapse' + p.pollID" aria-expanded="true" aria-controls="'collapse'+p.pollID">
+                    {{p.name}}
+                  </button>
+            </h2>
+        </div>
+
+        <div [id]="'collapse'+p.pollID" class="collapse" aria-labelledby="'heading'+p.pollID" data-parent="#accordionExample">
+            <div class="card-body">
+                <ul>
+                    <li *ngFor="let a of p.pollAnswers">{{a.answer}}   <strong *ngFor="let a of a.pollAnswerVotes; let i = index">{{i+1}} vote(s)</strong></li>
+                </ul>
+            </div>
+          </div>
+
+    </div>
+
+</div>
+
+{{polls|json}}
+
+

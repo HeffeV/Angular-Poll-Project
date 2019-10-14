@@ -20,3 +20,15 @@
     font-size: 15px;
     margin-top: 15px;
 }
+.alert{
+    position: absolute;
+    margin: 0;
+    top: 75%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+}
+label{
+    font-size: 18px;
+    color:#D0E1F9;
+}

@@ -1,8 +1,7 @@
 import { Component, enableProdMode } from '@angular/core';
 import { Observable } from 'rxjs';
-import { User } from './User/models/user.model';
-import { AuthenticateService } from './User/services/authenticate.service';
-import { cpus } from 'os';
+import { User } from './Models/user.model';
+import { AuthenticateService } from './services/services/authenticate.service';
 
 @Component({
   selector: 'app-root',

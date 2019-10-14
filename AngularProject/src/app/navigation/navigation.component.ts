@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticateService } from '../User/services/authenticate.service';
+import { AuthenticateService } from '../services/services/authenticate.service';
 
 @Component({
   selector: 'app-navigation',

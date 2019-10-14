@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl,Validators,FormBuilder } from '@angular/forms';
-import { AuthenticateService } from 'src/app/User/services/authenticate.service';
-import { UserLogin } from 'src/app/User/models/user-login.model';
+import { UserLogin } from 'src/app/Models/user-login.model';
 import { Router,ActivatedRoute } from '@angular/router';
 import { AppModule } from 'src/app/app.module';
 import { EventEmitter } from 'events';
 import { AppComponent } from 'src/app/app.component';
+import { AuthenticateService } from 'src/app/services/services/authenticate.service';
 
 @Component({
   selector: 'app-login-form',
@@ -13,6 +13,8 @@ import { AppComponent } from 'src/app/app.component';
   styleUrls: ['./login-form.component.scss']
 })
 export class LoginFormComponent implements OnInit {
+  loginError;
+  showError=false;
 loggedIn = true;
 model:UserLogin = new UserLogin("","");
 loginForm = this.fb.group({
@@ -34,6 +36,7 @@ loginForm = this.fb.group({
     else{
       this.loggedIn=false;
     }
+    this.showError=false;
   }
 
   onSubmit()
@@ -41,11 +44,17 @@ loginForm = this.fb.group({
     this.submitted = true;
     this.model.password = this.loginForm.controls["password"].value;
     this.model.username = this.loginForm.controls["username"].value;
-    this._authenticateService.authenticate(this.model).subscribe(result => {
-      this._authenticateService.isLoggedin.next(result.token ? true : false);
-      localStorage.setItem("token",result.token);
-      this.router.navigate(["/dashboard"]);
-    });
+    this._authenticateService.authenticate(this.model).subscribe(
+      (res: any) => {
+        localStorage.setItem('token', res.token);
+        this.router.navigateByUrl('/dashboard');
+      },
+      err => {
+          this.loginError='Incorrect username or password.';
+          this.showError=true;
+          this.submitted = false;
+      }
+    );
     
   }
 

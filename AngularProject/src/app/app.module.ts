@@ -9,16 +9,15 @@ import { MatListModule } from '@angular/material';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { SecurityInterceptor } from './User/security.interceptor';
-import { SecurityModule } from './User/security.module';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { SecurityInterceptor } from './services/security.interceptor';
+import { SecurityModule } from './services/security.module';
 import { HomeComponent } from './home/home.component';
+import { DashboardModule } from './userdashboard/dashboard.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavigationComponent,
-    DashboardComponent,
     HomeComponent
   ],
   imports: [
@@ -28,7 +27,7 @@ import { HomeComponent } from './home/home.component';
     RxFormModule,
     FormsModule,
     MatListModule,
-    HttpClientModule,SecurityModule
+    HttpClientModule,SecurityModule,DashboardModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

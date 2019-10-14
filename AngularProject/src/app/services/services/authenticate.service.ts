@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { UserLogin } from '../models/user-login.model';
+import { UserLogin } from '../../Models/user-login.model';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { User } from '../models/user.model';
+import { User } from '../../Models/user.model';
 import { Router } from '@angular/router';
 
 @Injectable({
