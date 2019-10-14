@@ -1,0 +1,5 @@
+<div class="sidenav">
+      <a  mat-list-item routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"><img class="icon" src="../../assets/lightIconSmall.png" alt="Icon"></a>
+        <a *ngIf="!loggedIn" mat-list-item routerLink="/login" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Login</a>
+        <a *ngIf="loggedIn" mat-list-item routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Dashboard</a>
+  </div>

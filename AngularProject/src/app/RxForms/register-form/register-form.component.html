@@ -1,0 +1,16 @@
+<div class="card" style="width: 18rem;">
+        <div class="card-body">
+                <h3 class="card-title">Register</h3>
+        <form class="registerForm" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <p>Email:</p>
+        <input class="form-control" type="email" formControlName="email" />
+        <p>Username:        </p>
+                <input class="form-control" type="text" formControlName="username" />
+        <p>Password:        </p>
+        <input class="form-control" type="password" formControlName="password" />
+        <p>
+            <button class="btnMargin btn btn-light" type="submit" [disabled]="!registerForm.valid || submitted">Register</button>
+        </p>
+        </form>
+        </div>
+        </div>

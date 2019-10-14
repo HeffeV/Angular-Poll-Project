@@ -1,0 +1,16 @@
+<div *ngIf="!loggedIn" class="card" style="width: 18rem;">
+        <div class="card-body">
+        <h3 class="card-title">Login</h3>
+            <form class="loginForm" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                        <p>Username:</p>
+                        <input class="form-control" type="text" formControlName="username" />
+                        <p>Password:</p>
+                        <input class="form-control" type="password" formControlName="password" />
+                        <p>
+                            <button class="btnMargin btn btn-light" type="submit" [disabled]="!loginForm.valid || submitted">Login</button>
+                            
+                        </p>
+            </form>
+            <button class="btnMargin btn btn-light" routerLink="/register" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Register</button>
+</div>
+</div>
