@@ -3,6 +3,7 @@ import { PollService } from 'src/app/services/services/poll.service';
 import { User } from 'src/app/Models/user.model';
 import { Poll } from 'src/app/Models/poll.model';
 import { JsonPipe } from '@angular/common';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -13,10 +14,9 @@ import { JsonPipe } from '@angular/common';
 export class MyPollsComponent implements OnInit {
   
   user;
-  allPolls:Poll[]=[];
   myPolls:Poll[]=[];
   invitedPolls:Poll[]=[];
-  constructor(private _pollservice:PollService) { }
+  constructor(private _pollservice:PollService,private router:Router) { }
 
   ngOnInit() {
     this.getUserData();
@@ -29,27 +29,24 @@ export class MyPollsComponent implements OnInit {
       this.user = JSON.parse(decodedJwt);
       this._pollservice.getPolls(this.user.UserID).subscribe(e=>
         {
-          this.allPolls=e;
-          this.allPolls.forEach(element=>
-            {
-              if(element.accepted){
-                this.myPolls.push(element);
-              }
-              else{
-                this.invitedPolls.push(element);
-              }
-            })
-        }
-        );
-
-      /*this.allPolls.forEach(element=>{
-        if(element.accepted){
-          this.myPolls.push(element);
-        }
-        else{
-          this.invitedPolls.push(element);
-        }*/
+          this.myPolls=e;
+        });
+      this._pollservice.getPollInvites(this.user.UserID).subscribe(e=>{
+        this.invitedPolls=e;
+      });
     }
+  }
+
+  btnAccept(pollid:number){
+    this._pollservice.acceptPollInvite(this.user.UserID,pollid).subscribe(e=>{
+      this.ngOnInit();
+    });
+  }
+
+  btnDecline(pollid:number){
+    this._pollservice.declinePollInvite(this.user.UserID,pollid).subscribe(e=>{
+      this.ngOnInit();
+    });
   }
 
 

@@ -48,6 +48,7 @@ loginForm = this.fb.group({
       (res: any) => {
         localStorage.setItem('token', res.token);
         this.router.navigateByUrl('/dashboard');
+        this._authenticateService.isLoggedin.next(true);
       },
       err => {
           this.loginError='Incorrect username or password.';
