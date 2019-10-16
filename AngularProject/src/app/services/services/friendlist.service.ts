@@ -13,4 +13,13 @@ export class FriendlistService {
   getFriends(userid:number):Observable<User[]>{
     return this.http.get<User[]>("https://localhost:44308/api/User/getFriends?userid="+userid);
   }
+  getFriendRequests(userid:number):Observable<User[]>{
+    return this.http.get<User[]>("https://localhost:44308/api/User/getFriendRequests?userid="+userid);
+  }
+  acceptFriend(userid:number,friendid:number){
+    return this.http.post("https://localhost:44308/api/User/acceptFriend?userID="+userid+"&friendID="+friendid,null);
+  }
+  declineFriend(userid:number,friendid:number){
+    return this.http.post("https://localhost:44308/api/User/deleteFriend?userID="+userid+"&friendID="+friendid,null);
+  }
 }

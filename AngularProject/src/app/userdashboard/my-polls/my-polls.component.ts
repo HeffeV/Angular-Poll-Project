@@ -4,6 +4,9 @@ import { User } from 'src/app/Models/user.model';
 import { Poll } from 'src/app/Models/poll.model';
 import { JsonPipe } from '@angular/common';
 import { Router } from '@angular/router';
+import { PollAnswer } from 'src/app/Models/poll-answer.model';
+import { UserserviceService } from 'src/app/services/services/userservice.service';
+import { PollAnswerVote } from 'src/app/Models/poll-answer-vote.model';
 
 
 @Component({
@@ -12,29 +15,41 @@ import { Router } from '@angular/router';
   styleUrls: ['./my-polls.component.scss']
 })
 export class MyPollsComponent implements OnInit {
-  
+  voted:boolean=false;
+  selectedPoll:Poll;
+  votedForPoll;
+  userAnswerVote;
   user;
+  participatingPolls:Poll[]=[];
   myPolls:Poll[]=[];
   invitedPolls:Poll[]=[];
-  constructor(private _pollservice:PollService,private router:Router) { }
+  vote:PollAnswerVote=new PollAnswerVote(null,null,null);
+  constructor(private _pollservice:PollService,private router:Router,private userservice:UserserviceService) { }
 
   ngOnInit() {
     this.getUserData();
+    this.participatingPolls=[];
+    this.myPolls=[];
+    this.invitedPolls=[];
+    this.voted=false;
   }
 
   getUserData(){
-    if(localStorage.getItem('token')!=null){
-      let jwtData=localStorage.getItem("token").split('.')[1];
-      let decodedJwt = window.atob(jwtData);
-      this.user = JSON.parse(decodedJwt);
+    this.user=this.userservice.getUser();
       this._pollservice.getPolls(this.user.UserID).subscribe(e=>
         {
-          this.myPolls=e;
+         e.forEach(p=>{
+            if(p.owner==this.user.UserID){
+              this.myPolls.push(p);
+            }
+            else{
+              this.participatingPolls.push(p);
+            }
+         })
         });
       this._pollservice.getPollInvites(this.user.UserID).subscribe(e=>{
         this.invitedPolls=e;
       });
-    }
   }
 
   btnAccept(pollid:number){
@@ -47,6 +62,37 @@ export class MyPollsComponent implements OnInit {
     this._pollservice.declinePollInvite(this.user.UserID,pollid).subscribe(e=>{
       this.ngOnInit();
     });
+  }
+
+  btnVote(poll:Poll){
+    this.selectedPoll=poll;
+    this.votedForPoll=false;
+    this.userAnswerVote=0;
+    this.selectedPoll.pollAnswers.forEach(a=>{
+      a.pollAnswerVotes.forEach(e=>{
+        if(e.userID==this.user.UserID){
+          this.votedForPoll=true;
+          this.userAnswerVote=e.pollAnswerID;
+        }
+      })
+    });
+  }
+
+  btnVoteAnswer(pollAnswer:PollAnswer){
+    this._pollservice.voteForPoll(this.user.UserID,pollAnswer.pollAnswerID,this.selectedPoll.pollID).subscribe();
+    this.voted = true;
+    this.selectedPoll.pollAnswers.forEach(e=>{
+      if(e.pollAnswerID==pollAnswer.pollAnswerID){
+        e.pollAnswerVotes.push(this.vote);
+        this.voted=true;
+      }
+    })
+  }
+
+  btnCloseVote(){
+    if(this.voted){
+      this.ngOnInit();
+    }
   }
 
 

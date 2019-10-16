@@ -5,6 +5,6 @@ export class PollAnswer {
         public pollAnswerID:number,
         public pollID: number, 
         public answer: string,
-        public pollAnswerVotes: PollAnswerVote ){
+        public pollAnswerVotes: PollAnswerVote[] ){
     }
 }

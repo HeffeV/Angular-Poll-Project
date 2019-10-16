@@ -1,4 +1,67 @@
-<h3>Friendlist</h3>
-<ul>
-    <li *ngFor="let u of myFriends">{{u.username}}</li>
-</ul>
+<div class="accordion" id="accordionExample">
+    <h3>My friends</h3>
+<div class='card'>
+    <div class="card-header" id="headingFriends">
+        <h2 class=mb-0>
+            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseFriends" aria-expanded="true" aria-controls="collapseFriends">
+                Open Friendlist ({{myFriends.length}})
+              </button>
+        </h2>
+    </div>
+    <div id="collapseFriends" class="collapse" aria-labelledby="headingFriends" data-parent="#accordionExample">
+        <div class="card-body">
+                <table class="table table-borderless">
+                        <thead>
+                            <tr>
+                              <th scope="col">Username</th>
+                              <th scope="col">Email</th>
+                              <th scope="col">Delete</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                              <tr *ngFor="let u of myFriends">
+                                  <td>{{u.username}}</td>
+                                  <td>{{u.email}}</td>
+                                  <td><button type="button" class="btnMargin btn btn-danger" (click)="btnDeclineFriend(u.userID)">Delete</button></td>
+                              </tr>
+                          </tbody>
+                    </table>
+        </div>
+      </div>
+</div>
+</div>
+
+<div class="accordion" id="accordionExample" *ngIf="myFriendRequests.length>0">
+    <h3>Friend requests</h3>
+<div class='card'>
+    <div class="card-header" id="headingFriendReq">
+        <h2 class=mb-0>
+            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseFriendReq" aria-expanded="true" aria-controls="collapseFriendReq">
+                Open Friend requests ({{myFriendRequests.length}})
+              </button>
+        </h2>
+    </div>
+    <div id="collapseFriendReq" class="collapse" aria-labelledby="headingFriendReq" data-parent="#accordionExample">
+        <div class="card-body">
+                <table class="table table-borderless">
+                    <thead>
+                        <tr>
+                          <th scope="col">Username</th>
+                          <th scope="col">Email</th>
+                          <th scope="col">Accept</th>
+                          <th scope="col">Decline</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                          <tr *ngFor="let u of myFriendRequests">
+                              <td>{{u.username}}</td>
+                              <td>{{u.email}}</td>
+                              <td><button type="button" class="btnMargin btn btn-success" (click)="btnAcceptFriend(u.userID)">Accept</button></td>
+                              <td><button type="button" class="btnMargin btn btn-danger" (click)="btnDeclineFriend(u.userID)">Decline</button></td>
+                          </tr>
+                      </tbody>
+                </table>
+        </div>
+      </div>
+</div>
+</div>

@@ -11,9 +11,25 @@
 
         <div [id]="'collapse'+p.pollID" class="collapse" aria-labelledby="'heading'+p.pollID" data-parent="#accordionExample">
             <div class="card-body">
-                <ul>
-                    <li *ngFor="let a of p.pollAnswers">{{a.answer}}   <strong *ngFor="let a of a.pollAnswerVotes; let i = index">{{i+1}} vote(s)</strong></li>
-                </ul>
+                <h5>{{p.name}}</h5>
+                <p *ngIf="p.singleVote" class="smallFont">Single vote enabled</p>
+                    <table class="table table-borderless">
+                            <thead>
+                                <tr>
+                                  <th scope="col">Answer</th>
+                                  <th scope="col">Votes</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                  <tr *ngFor="let a of p.pollAnswers">
+                                      <td>{{a.answer}}</td>
+                                      <td>{{a.pollAnswerVotes.length}}</td>
+                                  </tr>
+                              </tbody>
+                        </table>
+                        <button type="button" class="btnVote btn btn-primary" data-toggle="modal" data-target="#exampleModal" (click)="btnVote(p)">
+                                Vote
+                              </button>
             </div>
           </div>
 
@@ -22,6 +38,45 @@
 </div>
 
 <div class="accordion" id="accordionExample">
+    <h3>Participating polls</h3>
+<div *ngFor="let p of participatingPolls" class='card'>
+    <div class="card-header" [id]="'heading'+p.pollID">
+        <h2 class=mb-0>
+            <button class="btn btn-link" type="button" data-toggle="collapse" [attr.data-target]="'#collapse' + p.pollID" aria-expanded="true" aria-controls="'collapse'+p.pollID">
+                {{p.name}}
+              </button>
+        </h2>
+    </div>
+
+    <div [id]="'collapse'+p.pollID" class="collapse" aria-labelledby="'heading'+p.pollID" data-parent="#accordionExample">
+        <div class="card-body">
+                <h5>{{p.name}}</h5>
+                <p *ngIf="p.singleVote" class="smallFont">Single vote enabled</p>
+                <table class="table table-borderless">
+                        <thead>
+                            <tr>
+                              <th scope="col">Answer</th>
+                              <th scope="col">Votes</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                              <tr *ngFor="let a of p.pollAnswers">
+                                  <td>{{a.answer}}</td>
+                                  <td>{{a.pollAnswerVotes.length}}</td>
+                              </tr>
+                          </tbody>
+                    </table>
+                    <button type="button" class="btnVote btn btn-primary" data-toggle="modal" data-target="#exampleModal" (click)="btnVote(p)">
+                            Vote
+                          </button>
+        </div>
+      </div>
+
+</div>
+
+</div>
+
+<div class="accordion" id="accordionExample" *ngIf="invitedPolls.length>0">
     <h3>Invited polls</h3>
 <div *ngFor="let p of invitedPolls" class='card'>
     <div class="card-header" [id]="'heading'+p.pollID">
@@ -41,8 +96,47 @@
 </div>
 
 </div>
-
-
-{{polls|json}}
+      
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" *ngIf="selectedPoll!=null">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">{{selectedPoll.name}}</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <h5 *ngIf="votedForPoll&&selectedPoll.singleVote">Changing your vote will remove your previous vote.</h5>
+                    <table class="table table-borderless">
+                            <thead>
+                                <tr>
+                                  <th scope="col">Answer</th>
+                                  <th scope="col">Votes</th>
+                                  <th scope="col">Vote</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                  <tr *ngFor="let a of selectedPoll.pollAnswers">
+                                      <td>{{a.answer}}</td>
+                                      <td>{{a.pollAnswerVotes.length}}</td>
+                                      <td *ngIf="votedForPoll&&selectedPoll.singleVote">
+                                        <button *ngIf="userAnswerVote==a.pollAnswerID" type="button" class="btn btn-secondary" (click)="btnVoteAnswer(a)" [disabled]="true">Selected</button>
+                                        <button *ngIf="userAnswerVote!=a.pollAnswerID" type="button" class="btn btn-warning" (click)="btnVoteAnswer(a)" onclick="this.disabled=true;">Select</button>
+                                      </td>
+                                      <td *ngIf="!selectedPoll.singleVote">
+                                        <button type="button" class="btn btn-primary" (click)="btnVoteAnswer(a)" onclick="this.disabled=true;">Select</button>
+                                      </td>
+                                  </tr>
+                              </tbody>
+                        </table>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="btnCloseVote()">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
 

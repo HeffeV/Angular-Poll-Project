@@ -10,22 +10,12 @@ export class NavigationComponent implements OnInit {
   loggedIn = false;
   constructor(private _authenticateService : AuthenticateService) {
     this._authenticateService.isLoggedin.subscribe(e=> {
-      if(localStorage.getItem("token")!=null){
-        this.loggedIn=true
-      }
-      else{
-        this.loggedIn=false;
-      }
+      this.loggedIn=_authenticateService.CheckLoggedIn();
       })
     }
 
   ngOnInit() {
-    if(localStorage.getItem("token")!=null){
-      this.loggedIn=true
-    }
-    else{
-      this.loggedIn=false;
-    }
+    this.loggedIn=this._authenticateService.CheckLoggedIn();
   }
 
 }

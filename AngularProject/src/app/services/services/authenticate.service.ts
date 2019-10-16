@@ -18,7 +18,15 @@ export class AuthenticateService {
     localStorage.removeItem("token");
     this.router.navigate(["/"]);
     this.isLoggedin.next(false);
-    console.log("loggedOut")
+  }
+
+  CheckLoggedIn(){
+    if(localStorage.getItem("token")!=null){
+      return true;
+    }
+    else{
+      return false;
+    }
   }
 
 

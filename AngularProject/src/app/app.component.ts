@@ -18,18 +18,11 @@ export class AppComponent {
     }
     
     ngOnInit() {
-      if(localStorage.getItem("token")!=null){
-        this.loggedIn=true
-      }
-      else{
-        this.loggedIn=false;
-      }
-      console.log("App: "+this.loggedIn);
+      this.loggedIn=this._authenticateService.CheckLoggedIn();
     }
 
     logOut(){
       this._authenticateService.logOut();
-      console.log("Logged out "+this.loggedIn);
     }
 
 

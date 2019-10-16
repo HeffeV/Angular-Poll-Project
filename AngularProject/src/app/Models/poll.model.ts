@@ -4,6 +4,8 @@ export class Poll {
     constructor( 
         public pollID:number,
         public name: string,
-        public PollAnswers: PollAnswer[] ){
+        public owner:number,
+        public singleVote:boolean,
+        public pollAnswers: PollAnswer[] ){
     }
 }

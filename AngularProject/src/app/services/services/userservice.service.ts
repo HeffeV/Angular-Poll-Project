@@ -11,5 +11,14 @@ export class UserserviceService {
   
 addUser(userReg: User) {
   return this.http.post<User>("https://localhost:44308/api/User", userReg);
+}
+  getUser(){
+    if(localStorage.getItem('token')!=null){
+      let jwtData=localStorage.getItem("token").split('.')[1];
+      let decodedJwt = window.atob(jwtData);
+      return JSON.parse(decodedJwt);
+    }
+    return null;
   }
+
 }
