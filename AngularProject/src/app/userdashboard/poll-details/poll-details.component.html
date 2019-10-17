@@ -1,0 +1,20 @@
+<div class="container">
+    <h2>Edit form</h2>
+    <form class="editForm" [formGroup]="editForm">
+        <div class="form-row">
+            <div class="form-group col-md-8">
+                <label for="name">Poll name</label>
+                <input class="form-control" id="name" type="text" formControlName="pollName" placeholder="Poll name" />
+            </div>
+            <div class="form-group col-md-4">
+                <label for="inputState">Vote option</label>
+                <select class="form-control" formControlName="pollSingleVote" id="inputState">
+                    <option value="true">Single vote</option>
+                    <option value="false">Multiple votes</option>
+                </select>
+            </div>
+        </div>
+    </form>
+    <app-poll-answers></app-poll-answers>
+    <button class="btnMargin btn btn-primary width" (click)="onSubmit()">Save</button>
+</div>

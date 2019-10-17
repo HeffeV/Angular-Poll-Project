@@ -1,142 +1,182 @@
 <div class="accordion" id="accordionExample">
-        <h3>My polls</h3>
-    <div *ngFor="let p of myPolls" class='card'>
-        <div class="card-header" [id]="'heading'+p.pollID">
-            <h2 class=mb-0>
-                <button class="btn btn-link" type="button" data-toggle="collapse" [attr.data-target]="'#collapse' + p.pollID" aria-expanded="true" aria-controls="'collapse'+p.pollID">
-                    {{p.name}}
-                  </button>
-            </h2>
-        </div>
-
-        <div [id]="'collapse'+p.pollID" class="collapse" aria-labelledby="'heading'+p.pollID" data-parent="#accordionExample">
-            <div class="card-body">
-                <h5>{{p.name}}</h5>
-                <p *ngIf="p.singleVote" class="smallFont">Single vote enabled</p>
-                    <table class="table table-borderless">
-                            <thead>
-                                <tr>
-                                  <th scope="col">Answer</th>
-                                  <th scope="col">Votes</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                  <tr *ngFor="let a of p.pollAnswers">
-                                      <td>{{a.answer}}</td>
-                                      <td>{{a.pollAnswerVotes.length}}</td>
-                                  </tr>
-                              </tbody>
-                        </table>
-                        <button type="button" class="btnVote btn btn-primary" data-toggle="modal" data-target="#exampleModal" (click)="btnVote(p)">
-                                Vote
-                              </button>
-            </div>
-          </div>
-
+  <h3>My polls</h3>
+  <div *ngFor="let p of myPolls" class='card'>
+    <div class="card-header" [id]="'heading'+p.pollID">
+      <h2 class=mb-0>
+        <button class="btn btn-link" type="button" data-toggle="collapse" [attr.data-target]="'#collapse' + p.pollID"
+          aria-expanded="true" aria-controls="'collapse'+p.pollID">
+          {{p.name}}
+        </button>
+      </h2>
     </div>
-
+    <div [id]="'collapse'+p.pollID" class="collapse" aria-labelledby="'heading'+p.pollID"
+      data-parent="#accordionExample">
+      <div class="card-body">
+        <h5>{{p.name}}</h5>
+        <p *ngIf="p.singleVote" class="smallFont">Single vote enabled</p>
+        <table class="table table-borderless">
+          <thead>
+            <tr>
+              <th scope="col">Answer</th>
+              <th scope="col">Votes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let a of p.pollAnswers">
+              <td>{{a.answer}}</td>
+              <td>{{a.pollAnswerVotes.length}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="row rowWidth">
+          <div class="col-md">
+            <button type="button" class="btnVote btn btn-primary btnWidth" data-toggle="modal"
+              data-target="#exampleModal" (click)="btnVote(p)">
+              Vote
+            </button>
+          </div>
+          <div class="col-md">
+            <button type="button" class="btnVote btn btn-warning btnWidth" (click)="btnEdit(p)">
+              Edit
+            </button>
+          </div>
+          <div class="col-md">
+            <button type="button" class="btnVote btn btn-danger btnWidth" (click)="btnDelete(p)" data-toggle="modal"
+              data-target="#ModalConfirm">
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div class="accordion" id="accordionExample">
-    <h3>Participating polls</h3>
-<div *ngFor="let p of participatingPolls" class='card'>
+  <h3>Participating polls</h3>
+  <div *ngFor="let p of participatingPolls" class='card'>
     <div class="card-header" [id]="'heading'+p.pollID">
-        <h2 class=mb-0>
-            <button class="btn btn-link" type="button" data-toggle="collapse" [attr.data-target]="'#collapse' + p.pollID" aria-expanded="true" aria-controls="'collapse'+p.pollID">
-                {{p.name}}
-              </button>
-        </h2>
+      <h2 class=mb-0>
+        <button class="btn btn-link" type="button" data-toggle="collapse" [attr.data-target]="'#collapse' + p.pollID"
+          aria-expanded="true" aria-controls="'collapse'+p.pollID">
+          {{p.name}}
+        </button>
+      </h2>
     </div>
-
-    <div [id]="'collapse'+p.pollID" class="collapse" aria-labelledby="'heading'+p.pollID" data-parent="#accordionExample">
-        <div class="card-body">
-                <h5>{{p.name}}</h5>
-                <p *ngIf="p.singleVote" class="smallFont">Single vote enabled</p>
-                <table class="table table-borderless">
-                        <thead>
-                            <tr>
-                              <th scope="col">Answer</th>
-                              <th scope="col">Votes</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                              <tr *ngFor="let a of p.pollAnswers">
-                                  <td>{{a.answer}}</td>
-                                  <td>{{a.pollAnswerVotes.length}}</td>
-                              </tr>
-                          </tbody>
-                    </table>
-                    <button type="button" class="btnVote btn btn-primary" data-toggle="modal" data-target="#exampleModal" (click)="btnVote(p)">
-                            Vote
-                          </button>
-        </div>
+    <div [id]="'collapse'+p.pollID" class="collapse" aria-labelledby="'heading'+p.pollID"
+      data-parent="#accordionExample">
+      <div class="card-body">
+        <h5>{{p.name}}</h5>
+        <p *ngIf="p.singleVote" class="smallFont">Single vote enabled</p>
+        <table class="table table-borderless">
+          <thead>
+            <tr>
+              <th scope="col">Answer</th>
+              <th scope="col">Votes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let a of p.pollAnswers">
+              <td>{{a.answer}}</td>
+              <td>{{a.pollAnswerVotes.length}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <button type="button" class="btnVote btn btn-primary" data-toggle="modal" data-target="#exampleModal"
+          (click)="btnVote(p)">
+          Vote
+        </button>
       </div>
-
-</div>
-
+    </div>
+  </div>
 </div>
 
 <div class="accordion" id="accordionExample" *ngIf="invitedPolls.length>0">
-    <h3>Invited polls</h3>
-<div *ngFor="let p of invitedPolls" class='card'>
+  <h3>Invited polls</h3>
+  <div *ngFor="let p of invitedPolls" class='card'>
     <div class="card-header" [id]="'heading'+p.pollID">
-        <h2 class=mb-0>
-            <button class="btn btn-link" type="button" data-toggle="collapse" [attr.data-target]="'#collapse' + p.pollID" aria-expanded="true" aria-controls="'collapse'+p.pollID">
-                {{p.name}}
-              </button>
-        </h2>
+      <h2 class=mb-0>
+        <button class="btn btn-link" type="button" data-toggle="collapse" [attr.data-target]="'#collapse' + p.pollID"
+          aria-expanded="true" aria-controls="'collapse'+p.pollID">
+          {{p.name}}
+        </button>
+      </h2>
     </div>
-
-    <div [id]="'collapse'+p.pollID" class="collapse" aria-labelledby="'heading'+p.pollID" data-parent="#accordionExample">
-        <div class="card-body">
-            <button type="button" class="btnMargin btn btn-success" (click)="btnAccept(p.pollID)">Accept</button><button type="button" class="btnMargin btn btn-danger" (click)="btnDecline(p.pollID)">Decline</button>
-        </div>
+    <div [id]="'collapse'+p.pollID" class="collapse" aria-labelledby="'heading'+p.pollID"
+      data-parent="#accordionExample">
+      <div class="card-body">
+        <button type="button" class="btnMargin btn btn-success" (click)="btnAccept(p.pollID)">Accept</button><button
+          type="button" class="btnMargin btn btn-danger" (click)="btnDecline(p.pollID)">Decline</button>
       </div>
-
+    </div>
+  </div>
 </div>
 
-</div>
-      
-      <!-- Modal -->
-      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" *ngIf="selectedPoll!=null">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">{{selectedPoll.name}}</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-                <h5 *ngIf="votedForPoll&&selectedPoll.singleVote">Changing your vote will remove your previous vote.</h5>
-                    <table class="table table-borderless">
-                            <thead>
-                                <tr>
-                                  <th scope="col">Answer</th>
-                                  <th scope="col">Votes</th>
-                                  <th scope="col">Vote</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                  <tr *ngFor="let a of selectedPoll.pollAnswers">
-                                      <td>{{a.answer}}</td>
-                                      <td>{{a.pollAnswerVotes.length}}</td>
-                                      <td *ngIf="votedForPoll&&selectedPoll.singleVote">
-                                        <button *ngIf="userAnswerVote==a.pollAnswerID" type="button" class="btn btn-secondary" (click)="btnVoteAnswer(a)" [disabled]="true">Selected</button>
-                                        <button *ngIf="userAnswerVote!=a.pollAnswerID" type="button" class="btn btn-warning" (click)="btnVoteAnswer(a)" onclick="this.disabled=true;">Select</button>
-                                      </td>
-                                      <td *ngIf="!selectedPoll.singleVote">
-                                        <button type="button" class="btn btn-primary" (click)="btnVoteAnswer(a)" onclick="this.disabled=true;">Select</button>
-                                      </td>
-                                  </tr>
-                              </tbody>
-                        </table>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="btnCloseVote()">Close</button>
-            </div>
-          </div>
-        </div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true" *ngIf="selectedPoll!=null">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{selectedPoll.name}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
+      <div class="modal-body">
+        <h5 *ngIf="votedForPoll&&selectedPoll.singleVote">Changing your vote will remove your previous vote.</h5>
+        <table class="table table-borderless">
+          <thead>
+            <tr>
+              <th scope="col">Answer</th>
+              <th scope="col">Votes</th>
+              <th scope="col">Vote</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let a of selectedPoll.pollAnswers">
+              <td>{{a.answer}}</td>
+              <td>{{a.pollAnswerVotes.length}}</td>
+              <td *ngIf="votedForPoll&&selectedPoll.singleVote">
+                <button *ngIf="userAnswerVote==a.pollAnswerID" type="button" class="btn btn-secondary"
+                  (click)="btnVoteAnswer(a)" [disabled]="true">Selected</button>
+                <button *ngIf="userAnswerVote!=a.pollAnswerID" type="button" class="btn btn-warning"
+                  (click)="btnVoteAnswer(a)" onclick="this.disabled=true;">Select</button>
+              </td>
+              <td *ngIf="!selectedPoll.singleVote">
+                <button type="button" class="btn btn-primary" (click)="btnVoteAnswer(a)"
+                  onclick="this.disabled=true;">Select</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="btnCloseVote()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
+<!-- ModalConfirm -->
+<div class="modal fade" id="ModalConfirm" tabindex="-1" role="dialog" aria-labelledby="ModalConfirm" aria-hidden="true"
+  *ngIf="selectedPoll!=null">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ModalConfirm">{{selectedPoll.name}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
 
+        <p>Are you sure you want to delete <strong>{{selectedPoll.name}}</strong> from your Polls?</p>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="btnConfirmDelete()">Delete</button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

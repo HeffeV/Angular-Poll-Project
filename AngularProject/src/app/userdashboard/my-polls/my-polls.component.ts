@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { PollService } from 'src/app/services/services/poll.service';
 import { User } from 'src/app/Models/user.model';
 import { Poll } from 'src/app/Models/poll.model';
@@ -15,6 +15,8 @@ import { PollAnswerVote } from 'src/app/Models/poll-answer-vote.model';
   styleUrls: ['./my-polls.component.scss']
 })
 export class MyPollsComponent implements OnInit {
+  @Input() poll: Poll;
+  @Output() choosePolls = new EventEmitter<Poll>();
   voted:boolean=false;
   selectedPoll:Poll;
   votedForPoll;
@@ -93,6 +95,21 @@ export class MyPollsComponent implements OnInit {
     if(this.voted){
       this.ngOnInit();
     }
+  }
+
+  btnDelete(poll:Poll){
+    this.selectedPoll=poll;
+  }
+
+  btnConfirmDelete(){
+    this._pollservice.deletePoll(this.selectedPoll.pollID).subscribe(e=>{
+      this.ngOnInit();
+    });
+  }
+
+  btnEdit(poll:Poll){
+    this._pollservice.setSelectedPoll(poll.pollID);
+    this.router.navigate(["/managepoll"]);
   }
 
 

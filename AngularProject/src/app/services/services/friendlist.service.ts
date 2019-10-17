@@ -22,4 +22,7 @@ export class FriendlistService {
   declineFriend(userid:number,friendid:number){
     return this.http.post("https://localhost:44308/api/User/deleteFriend?userID="+userid+"&friendID="+friendid,null);
   }
+  addFriend(userid:number,friendemail:string){
+    return this.http.post("https://localhost:44308/api/User/addFriend?userid="+userid+"&friendEmail="+friendemail,null);
+  }
 }

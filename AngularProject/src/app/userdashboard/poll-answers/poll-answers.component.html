@@ -1,0 +1,45 @@
+<table class="table table-borderless" *ngIf="poll!=null">
+    <thead>
+        <tr>
+            <th scope="col">Answer</th>
+            <th scope="col">Votes</th>
+            <th scope="col">Remove</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let a of poll.pollAnswers">
+            <td>{{a.answer}}</td>
+            <td>{{a.pollAnswerVotes.length}}</td>
+            <td><button class="btnMargin btn btn-danger" (click)="btnDeleteAnswer(a)">Delete</button></td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <button type="button" class="btn btn-success btnCenter" data-toggle="modal" data-target="#ModalAnswer">Add Answer</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+<div class="modal fade" id="ModalAnswer" tabindex="-1" role="dialog" aria-labelledby="ModalAnswer" aria-hidden="true" *ngIf="poll!=null">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ModalAnswer">Add answer to {{poll.name}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="answerForm" [formGroup]="answerForm">
+                        <input class="form-control" id="aname" type="text" formControlName="pollAnswer"
+                            placeholder="Answer name" />
+                        <button id="btn" class="btn btn-success" (click)="btnAddAnswer()">Add Answer</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
