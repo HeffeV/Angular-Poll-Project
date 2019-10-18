@@ -1,12 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { User } from 'src/app/Models/user.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FriendlistService {
+
+  myFriends: User[] = [];
+
+  friendList = new BehaviorSubject(this.myFriends);
 
   constructor(private http:HttpClient) { }
 

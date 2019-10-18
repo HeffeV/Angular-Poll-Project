@@ -5,13 +5,15 @@ import { RegisterFormComponent } from './RxForms/register-form/register-form.com
 import { HomeComponent } from './home/home.component';
 import { DashboardCompComponent } from './userdashboard/dashboard-comp/dashboard-comp.component';
 import { PollDetailsComponent } from './userdashboard/poll-details/poll-details.component';
+import { CreatePollComponent } from './RxForms/create-poll/create-poll.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent,},
   {path: 'login', component: LoginFormComponent,},
   {path: 'register', component: RegisterFormComponent,},
   {path: 'dashboard', component: DashboardCompComponent,},
-  {path: 'managepoll', component: PollDetailsComponent,}];
+  {path: 'managepoll', component: PollDetailsComponent,},
+  {path: 'createpoll', component: CreatePollComponent,}];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

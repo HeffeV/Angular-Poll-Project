@@ -7,11 +7,12 @@ import { FriendListComponent } from './friend-list/friend-list.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PollDetailsComponent } from './poll-details/poll-details.component';
 import { PollAnswersComponent } from './poll-answers/poll-answers.component';
+import { PollInviteComponent } from './poll-invite/poll-invite.component';
 
 @NgModule({
-  declarations: [DashboardCompComponent, MyPollsComponent,FriendListComponent, PollDetailsComponent, PollAnswersComponent],
+  declarations: [DashboardCompComponent, MyPollsComponent,FriendListComponent, PollDetailsComponent, PollAnswersComponent, PollInviteComponent],
   imports: [
     CommonModule,BrowserModule,ReactiveFormsModule
-  ],exports:[DashboardCompComponent,MyPollsComponent,FriendListComponent,PollDetailsComponent]
+  ],exports:[DashboardCompComponent,MyPollsComponent,FriendListComponent,PollDetailsComponent,PollInviteComponent]
 })
 export class DashboardModule { }

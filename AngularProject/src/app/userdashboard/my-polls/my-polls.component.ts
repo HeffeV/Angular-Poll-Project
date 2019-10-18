@@ -72,12 +72,14 @@ export class MyPollsComponent implements OnInit {
     this.userAnswerVote=0;
     this.selectedPoll.pollAnswers.forEach(a=>{
       a.pollAnswerVotes.forEach(e=>{
+        console.log(e);
         if(e.userID==this.user.UserID){
           this.votedForPoll=true;
           this.userAnswerVote=e.pollAnswerID;
         }
       })
     });
+    console.log("Useranswervote "+this.userAnswerVote+" votedforpoll "+this.votedForPoll);
   }
 
   btnVoteAnswer(pollAnswer:PollAnswer){
@@ -108,8 +110,12 @@ export class MyPollsComponent implements OnInit {
   }
 
   btnEdit(poll:Poll){
-    this._pollservice.setSelectedPoll(poll.pollID);
+    this._pollservice.editPoll.next(poll.pollID);
     this.router.navigate(["/managepoll"]);
+  }
+
+  btnInvite(poll:Poll){
+    this._pollservice.pollVote.next(poll.pollID);
   }
 
 

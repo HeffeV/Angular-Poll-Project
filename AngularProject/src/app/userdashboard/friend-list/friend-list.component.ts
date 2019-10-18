@@ -24,6 +24,7 @@ export class FriendListComponent implements OnInit {
     this.user = this.userservice.getUser();
     this._friendservice.getFriends(this.user.UserID).subscribe(e => {
       this.myFriends = e;
+      this._friendservice.friendList.next(this.myFriends);
     });
     this._friendservice.getFriendRequests(this.user.UserID).subscribe(e => {
       this.myFriendRequests = e;

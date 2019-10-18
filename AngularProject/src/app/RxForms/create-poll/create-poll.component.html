@@ -1,0 +1,130 @@
+<div class="container">
+    <h2>Step 1. Create poll</h2>
+    <form class="createForm" [formGroup]="createForm">
+        <div class="form-row">
+            <div class="form-group col-md-8">
+                <label for="name">Poll name</label>
+                <input class="form-control" id="name" type="text" formControlName="pollName" placeholder="Poll name" />
+            </div>
+            <div class="form-group col-md-4">
+                <label for="inputState">Vote option</label>
+                <select class="form-control" formControlName="pollSingleVote" id="inputState">
+                    <option value="true">Single vote</option>
+                    <option value="false">Multiple votes</option>
+                </select>
+            </div>
+        </div>
+    </form>
+    <table class="table table-borderless" *ngIf="poll!=null">
+        <thead>
+            <tr>
+                <th scope="col">Answer</th>
+                <th scope="col">Remove</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let a of pollAnswers">
+                <td>{{a.answer}}</td>
+                <td><button class="btnMargin btn btn-danger" (click)="btnDeleteAnswer(a)">Delete</button></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <button type="button" class="btn btn-success btnCenter" data-toggle="modal"
+                        data-target="#ModalAnswer">Add Answer</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-borderless small-text">
+        <thead>
+            <tr>
+                <th scope="col">Username</th>
+                <th scope="col">Email</th>
+                <th scope="col">Remove</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let u of invitedFriends">
+                <td>{{u.username}}</td>
+                <td>{{u.email}}</td>
+                <td><button type="button" class="btnMargin btn btn-danger" (click)="btnRemoveFriend(u)"
+                        onclick="this.disabled=true;">Remove</button></td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <button type="button" class="btn btn-success btnCenter" data-toggle="modal"
+                        data-target="#ModalInvite">Invite friends</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <button class="btnMargin btn btn-primary width" (click)="btnSubmit()">Create</button>
+</div>
+
+<div class="modal fade" id="ModalAnswer" tabindex="-1" role="dialog" aria-labelledby="ModalAnswer" aria-hidden="true"
+    *ngIf="poll!=null">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ModalAnswer">Add answer to poll</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="answerForm" [formGroup]="answerForm">
+                    <input class="form-control" id="aname" type="text" formControlName="pollAnswer"
+                        placeholder="Answer name" />
+                    <button id="btn" class="btn btn-success" (click)="btnAddAnswer()">Add Answer</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ModalConfirm -->
+<div class="modal fade" id="ModalInvite" tabindex="-1" role="dialog" aria-labelledby="ModalInvite" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ModalInvite">Invite friends to poll</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="table-wrapper-scroll-y my-custom-scrollbar">
+                    <table class="table table-borderless small-text">
+                        <thead>
+                            <tr>
+                                <th scope="col">Username</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Invite</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let u of myFriends">
+                                <td>{{u.username}}</td>
+                                <td>{{u.email}}</td>
+                                <td><button type="button" class="btnMargin btn btn-success" (click)="btnAddFriend(u)"
+                                        onclick="this.disabled=true;">Invite</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="alert alert-danger" role="alert" *ngIf="error">
+                    Error inviting friend
+                </div>
+                <div class="alert alert-success" role="alert" *ngIf="success">
+                    Invited friend
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

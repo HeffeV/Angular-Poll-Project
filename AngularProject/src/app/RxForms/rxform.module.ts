@@ -5,9 +5,10 @@ import { MatFormFieldModule, MatInputModule, MatButtonModule } from '@angular/ma
 import { LoginFormComponent } from './login-form/login-form.component';
 import { RegisterFormComponent } from './register-form/register-form.component';
 import { RouterModule } from '@angular/router';
+import { CreatePollComponent } from './create-poll/create-poll.component';
 
 @NgModule({
-  declarations: [LoginFormComponent, RegisterFormComponent],
+  declarations: [LoginFormComponent, RegisterFormComponent, CreatePollComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -16,6 +17,6 @@ import { RouterModule } from '@angular/router';
     MatButtonModule,
     RouterModule
   ],
-  exports:[LoginFormComponent,RegisterFormComponent]
+  exports:[LoginFormComponent,RegisterFormComponent,CreatePollComponent]
 })
 export class RxFormModule { }

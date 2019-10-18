@@ -17,21 +17,23 @@ export class PollAnswersComponent implements OnInit {
   constructor(private pollservice:PollService,private fb: FormBuilder) { }
 
   ngOnInit() {
-    this.pollservice.getSelectedPoll().subscribe(e=>{
-      this.poll=e;
+    this.pollservice.editPoll.subscribe(e=>{
+      this.pollservice.getPoll(e).subscribe(e=>{
+        this.poll=e;
+      })
     })
   }
 
   btnDeleteAnswer(answer:PollAnswer){
     this.pollservice.deletePollAnswer(answer.pollAnswerID).subscribe(e=>{
-      this.pollservice.setSelectedPoll(this.poll.pollID);
+      this.pollservice.editPoll.next(this.poll.pollID)
       this.ngOnInit()
     });
   }
 
   btnAddAnswer(){
     this.pollservice.addPollAnswer(this.poll.pollID,this.answerForm.value.pollAnswer).subscribe(e=>{
-      this.pollservice.setSelectedPoll(this.poll.pollID);
+      this.pollservice.editPoll.next(this.poll.pollID)
       this.ngOnInit()
     });
   }

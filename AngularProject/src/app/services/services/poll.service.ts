@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Poll } from 'src/app/Models/poll.model';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,14 +9,15 @@ import { Observable } from 'rxjs';
 export class PollService {
 
   selectedPoll:number;
+  
+  pollVote = new BehaviorSubject(this.selectedPoll);
+  editPoll = new BehaviorSubject(this.selectedPoll);
+
   pollString;
   constructor(private http: HttpClient) { }
 
-  getSelectedPoll(){
-    return this.http.get<Poll>("https://localhost:44308/api/Polls/"+this.selectedPoll);
-  }
-  setSelectedPoll(pollid:number){
-    this.selectedPoll=pollid;
+  getPoll(pollid:number){
+    return this.http.get<Poll>("https://localhost:44308/api/Polls/"+pollid);
   }
   getPolls(userid:number):Observable<Poll[]>{
     return this.http.get<Poll[]>("https://localhost:44308/api/Polls?userid="+userid);
@@ -44,5 +45,11 @@ export class PollService {
   }
   updatePoll(pollid:number,name:string,vote:boolean){
     return this.http.put("https://localhost:44308/api/Polls/updatePoll?pollid="+pollid+"&name="+name+"&vote="+vote,null)
+  }
+  inviteFriendToPoll(pollid:number,userid:number){
+    return this.http.post("https://localhost:44308/api/Polls/inviteUserToPoll?pollID="+pollid+"&userID="+userid,null)
+  }
+  addPoll(poll:Poll){
+    return this.http.post("https://localhost:44308/api/Polls/addPoll",poll);
   }
 }

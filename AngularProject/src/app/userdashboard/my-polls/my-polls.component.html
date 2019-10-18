@@ -36,6 +36,12 @@
             </button>
           </div>
           <div class="col-md">
+            <button type="button" class="btnVote btn btn-success btnWidth" (click)="btnInvite(p)" data-toggle="modal"
+              data-target="#ModalInvite">
+              Invite
+            </button>
+          </div>
+          <div class="col-md">
             <button type="button" class="btnVote btn btn-warning btnWidth" (click)="btnEdit(p)">
               Edit
             </button>
@@ -52,7 +58,7 @@
   </div>
 </div>
 
-<div class="accordion" id="accordionExample">
+<div class="accordion" id="accordionExample" *ngIf="participatingPolls.length>0">
   <h3>Participating polls</h3>
   <div *ngFor="let p of participatingPolls" class='card'>
     <div class="card-header" [id]="'heading'+p.pollID">
@@ -115,7 +121,7 @@
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
   aria-hidden="true" *ngIf="selectedPoll!=null">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">{{selectedPoll.name}}</h5>
@@ -161,7 +167,7 @@
 <!-- ModalConfirm -->
 <div class="modal fade" id="ModalConfirm" tabindex="-1" role="dialog" aria-labelledby="ModalConfirm" aria-hidden="true"
   *ngIf="selectedPoll!=null">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="ModalConfirm">{{selectedPoll.name}}</h5>
