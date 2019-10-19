@@ -29,5 +29,13 @@ export class AuthenticateService {
     }
   }
 
+  isLoggedIn() {
+    if(localStorage.getItem("token")) {
+    return true;
+    } else {
+    return false;
+    }
+    }
+
 
 }
