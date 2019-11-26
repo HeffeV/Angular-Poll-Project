@@ -8,6 +8,7 @@ import { PollDetailsComponent } from './userdashboard/poll-details/poll-details.
 import { CreatePollComponent } from './RxForms/create-poll/create-poll.component';
 import { AuthGuard } from './services/guards/auth.guard';
 
+//app routes
 const routes: Routes = [
   {path: '', component: HomeComponent,},
   {path: 'login', component: LoginFormComponent,},

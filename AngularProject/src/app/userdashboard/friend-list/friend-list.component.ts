@@ -22,10 +22,12 @@ export class FriendListComponent implements OnInit {
 
   ngOnInit() {
     this.user = this.userservice.getUser();
+    //user friends opvragen
     this._friendservice.getFriends(this.user.UserID).subscribe(e => {
       this.myFriends = e;
       this._friendservice.friendList.next(this.myFriends);
     });
+    //user friend requests opvragen
     this._friendservice.getFriendRequests(this.user.UserID).subscribe(e => {
       this.myFriendRequests = e;
     });
@@ -45,10 +47,12 @@ export class FriendListComponent implements OnInit {
   btnAddFriend() {
     this._friendservice.addFriend(this.user.UserID,this.friendForm.value.email).subscribe(
       (res:any)=>{
+        //successvol
         this.friendAdded = true;
         this.showError=false;
       },
       e=>{
+        //toevoegen niet gelukt.
         this.friendAdded=false;
         this.showError=true;
   });

@@ -17,6 +17,7 @@ export class PollAnswersComponent implements OnInit {
   constructor(private pollservice:PollService,private fb: FormBuilder) { }
 
   ngOnInit() {
+    //poll opvragen
     this.pollservice.editPoll.subscribe(e=>{
       this.pollservice.getPoll(e).subscribe(e=>{
         this.poll=e;
@@ -26,14 +27,18 @@ export class PollAnswersComponent implements OnInit {
 
   btnDeleteAnswer(answer:PollAnswer){
     this.pollservice.deletePollAnswer(answer.pollAnswerID).subscribe(e=>{
+      //huidige poll id in service opnieuw updaten
       this.pollservice.editPoll.next(this.poll.pollID)
+      //refresh
       this.ngOnInit()
     });
   }
 
   btnAddAnswer(){
     this.pollservice.addPollAnswer(this.poll.pollID,this.answerForm.value.pollAnswer).subscribe(e=>{
+      //huidige poll id in service opnieuw updaten
       this.pollservice.editPoll.next(this.poll.pollID)
+      //refresh
       this.ngOnInit()
     });
   }

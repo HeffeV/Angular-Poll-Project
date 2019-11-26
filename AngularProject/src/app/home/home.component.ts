@@ -16,6 +16,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
+    //Home page statistieken opvragen vanuit de back end
     this._homeservice.getNumberOfUsersAndPolls().subscribe(e=>
       this.homePageStats = new HomePageStats(e.amountPolls,e.amountUsers));
   }

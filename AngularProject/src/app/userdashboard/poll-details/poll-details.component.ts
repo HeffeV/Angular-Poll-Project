@@ -20,6 +20,7 @@ export class PollDetailsComponent implements OnInit {
     this.pollservice.editPoll.subscribe(e=>{
       this.pollservice.getPoll(e).subscribe(e=>{
         this.poll=e;
+        //form values naar de huidige form zetten.
         this.editForm.controls.pollName.setValue(this.poll.name);
         this.editForm.controls.pollSingleVote.setValue(this.poll.singleVote);
       })
@@ -30,8 +31,11 @@ export class PollDetailsComponent implements OnInit {
   }
 
   onSubmit(){
+    //poll doorsturen om te updaten.
     this.pollservice.updatePoll(this.poll.pollID,this.editForm.value.pollName,this.editForm.value.pollSingleVote).subscribe(e=>{
+      //refresh
       this.ngOnInit();
+      //alles ok -> ga naar dashboard
       this.router.navigate(["/dashboard"]);
     })
   }

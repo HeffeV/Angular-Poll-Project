@@ -20,6 +20,7 @@ export class AuthenticateService {
     this.isLoggedin.next(false);
   }
 
+  //return bool of er een gebruiker ingelogt is ofniet.
   CheckLoggedIn(){
     if(localStorage.getItem("token")!=null){
       return true;
@@ -28,14 +29,6 @@ export class AuthenticateService {
       return false;
     }
   }
-
-  isLoggedIn() {
-    if(localStorage.getItem("token")) {
-    return true;
-    } else {
-    return false;
-    }
-    }
 
 
 }

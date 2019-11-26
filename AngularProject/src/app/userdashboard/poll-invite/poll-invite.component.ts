@@ -16,13 +16,16 @@ export class PollInviteComponent implements OnInit {
   myFriends: User[] = [];
   constructor(private pollservice:PollService,private friendservice:FriendlistService) {
 
+    //request current poll id
     this.pollservice.pollVote.subscribe(e=>{
       if(e!=null){
+        //request poll from backend
         this.pollservice.getPoll(e).subscribe(e=>{
           this.poll=e;
         })
       }
     })
+    //request friendlist
     this.friendservice.friendList.subscribe(e=>{
       this.myFriends=e;
     })
@@ -32,12 +35,15 @@ export class PollInviteComponent implements OnInit {
   }
 
   btnInviteFriend(userid:number,pollid:number){
+    //invite friend to poll
     this.pollservice.inviteFriendToPoll(pollid,userid).subscribe(
       (res:any)=>{
+        //indien alles ok errors afzetten.
         this.error=false;
         this.success=true;
       },
       e=>{
+        //indien error, errors aanzetten.
         this.error=true;
         this.success=false;
     }
