@@ -13,6 +13,6 @@ export class HomeService {
   constructor(private http: HttpClient) { }
 
   getNumberOfUsersAndPolls():Observable<HomePageStats>{
-    return this.http.get<HomePageStats>("https://localhost:44308/api/Polls/homePageStats");
+    return this.http.get<HomePageStats>("https://pollapi.azurewebsites.net/api/Polls/homePageStats");
   }
 }

@@ -54,8 +54,6 @@ export class CreatePollComponent implements OnInit {
       e=>{
         console.log("Error");
     });
-
-
   }
 
   btnAddAnswer(){

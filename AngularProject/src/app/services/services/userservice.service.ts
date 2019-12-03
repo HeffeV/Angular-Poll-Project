@@ -10,7 +10,7 @@ export class UserserviceService {
   constructor(private http: HttpClient) { }
   
 addUser(userReg: User) {
-  return this.http.post<User>("https://localhost:44308/api/User", userReg);
+  return this.http.post<User>("https://pollapi.azurewebsites.net/api/User", userReg);
 }
 
 //current user returned (username)

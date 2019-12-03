@@ -12,7 +12,7 @@ export class AuthenticateService {
   isLoggedin = new BehaviorSubject(false);
   constructor(private _httpClient: HttpClient,private router:Router) { }
   authenticate(userLogin: UserLogin): Observable<User> {
-  return this._httpClient.post<User>("https://localhost:44308/api/authenticate/authenticate", userLogin);
+  return this._httpClient.post<User>("https://pollapi.azurewebsites.net/api/authenticate/authenticate", userLogin);
   }
   logOut(){
     localStorage.removeItem("token");
